@@ -1,0 +1,87 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath libs.gradle.android.plugin
+        classpath libs.kotlin.gradle
+        classpath libs.licensee
+        classpath libs.bugsnag.gradle
+        classpath libs.ruler
+    }
+}
+
+plugins {
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.gradle.doctor)
+    alias(libs.plugins.gradle.buildtimetracker)
+    alias(libs.plugins.gradle.cachefix) apply false // Applied in convention plugins
+    alias(libs.plugins.dependencyanalysis)
+}
+
+doctor {
+    javaHome {
+        ensureJavaHomeIsSet = false
+        failOnError.set(false)
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+tasks.register('clean') {
+    delete rootProject.buildDir
+}
+
+dependencyAnalysis {
+    issues {
+        all {
+            ignoreKtx(true)
+            onUnusedDependencies {
+                severity("fail")
+                exclude(
+                        "com.kizitonwose.calendar:compose", // False positive
+                        "com.google.dagger:hilt-android", // False positive
+                )
+            }
+            onIncorrectConfiguration {
+                severity("fail")
+                exclude(
+                        // Material3 is declared as an `api` dependency in the convention plugin,
+                        // which is true for 99% of the modules (since at least a Compose screen is
+                        // part of the public API)
+                        "androidx.compose.material3:material3"
+                )
+            }
+            onUnusedAnnotationProcessors {
+                severity("fail")
+            }
+            onRedundantPlugins {
+                severity("fail")
+            }
+        }
+    }
+    dependencies {
+        bundle("compose-ui") {
+            includeGroup("androidx.compose.ui")
+            includeGroup("androidx.compose.runtime")
+            includeDependency("androidx.compose.foundation:foundation")
+            includeDependency("androidx.compose.foundation:foundation-layout")
+        }
+        bundle("compose-animation") {
+            includeGroup("androidx.compose.animation")
+        }
+        bundle("compose-runtime") {
+            includeGroup("androidx.compose.runtime")
+        }
+        bundle("compose-material") {
+            includeGroup("androidx.compose.material")
+        }
+    }
+}

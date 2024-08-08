@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_back">Back</string>
+    <string name="common_edit">Edit</string>
+    <string name="common_save">Save</string>
+    <string name="common_archive">Archive</string>
+    <string name="common_more">More</string>
+    <string name="common_error">Error</string>
+    <string name="common_something_went_wrong">Something went wrong</string>
+    <string name="common_empty">Empty</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_interpunct">%1$s · %2$s</string>
+
+    <string name="menu_settings">Settings</string>
+    <string name="menu_archive">Archived habits</string>
+    <string name="menu_export">Backup and restore</string>
+
+    <string name="calendar_previous_month">Previous month</string>
+    <string name="calendar_next_month">Next month</string>
+
+    <string name="action_text_no_date">No date</string>
+    <string name="action_state_not_toggled">Not toggled</string>
+    <string name="action_state_toggled">Toggled</string>
+</resources>

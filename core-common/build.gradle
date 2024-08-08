@@ -1,0 +1,28 @@
+plugins {
+    id 'habittracker.android.library'
+    id 'com.google.devtools.ksp'
+}
+
+android {
+    namespace 'com.eesuhn.habittracker.core.common'
+
+    buildFeatures {
+        buildConfig true
+    }
+}
+
+dependencies {
+    implementation libs.bugsnag.runtime
+    implementation libs.logcat
+    implementation libs.kotlin.immutable
+    implementation libs.kotlin.coroutines.core
+
+    api libs.javax.inject
+    implementation libs.hilt.android
+    ksp libs.hilt.compiler
+
+    testImplementation libs.junit
+    testImplementation libs.kotlin.coroutines.test
+    testImplementation libs.mockito.kotlin
+    testImplementation libs.turbine
+}

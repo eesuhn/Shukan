@@ -1,0 +1,132 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'com.spotify.ruler'
+    id 'habittracker.android.app'
+}
+
+apply plugin: 'com.google.devtools.ksp'
+apply plugin: 'app.cash.licensee'
+apply plugin: 'com.bugsnag.android.gradle'
+
+ext {
+    PACKAGE_NAME = "com.eesuhn.habittracker"
+    API_KEY_BUGSNAG = "2e13a542ae3ed09ad42a5c82444925af"
+    URL_PRIVACY_POLICY = "https://habit-builder-97708.web.app/privacy-policy.html"
+    URL_SOURCE_CODE = "https://github.com/eesuhn/HabitTracker"
+}
+
+def useReleaseKeystore = rootProject.file("release/app-release.jks").exists()
+
+android {
+    namespace PACKAGE_NAME
+    defaultConfig {
+        applicationId PACKAGE_NAME
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders += ["api_key_bugsnag": "${API_KEY_BUGSNAG}"]
+        buildConfigField("String", "URL_PRIVACY_POLICY", "\"$URL_PRIVACY_POLICY\"")
+        buildConfigField("String", "URL_SOURCE_CODE", "\"$URL_SOURCE_CODE\"")
+    }
+
+    lint {
+        abortOnError true
+        ignoreTestSources true
+        checkDependencies true
+    }
+
+    signingConfigs {
+        release {
+            if (useReleaseKeystore) {
+                storeFile rootProject.file("release/app-release.jks")
+                storePassword System.getenv("RELEASE_STORE_PASSWORD")
+                keyAlias System.getenv("RELEASE_KEY_ALIAS")
+                keyPassword System.getenv("RELEASE_KEY_PASSWORD")
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+        }
+
+        release {
+            if (useReleaseKeystore) {
+                signingConfig signingConfigs.release
+            } else {
+                // Otherwise just use the debug keystore (this is mainly for PR CI builds)
+                signingConfig signingConfigs.debug
+            }
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        buildConfig true
+        compose true
+    }
+
+    composeOptions {
+         kotlinCompilerExtensionVersion libs.versions.compose.compiler.get()
+    }
+    packagingOptions {
+        jniLibs {
+            excludes += ['META-INF/licenses/**']
+        }
+        resources {
+            excludes += ['META-INF/licenses/**', 'META-INF/AL2.0', 'META-INF/LGPL2.1', '**/attach_hotspot_windows.dll']
+        }
+    }
+
+    testOptions {
+        animationsDisabled = true
+    }
+}
+
+ruler {
+    abi.set("arm64-v8a")
+    locale.set("en")
+    screenDensity.set(480)
+    sdkVersion.set(27)
+}
+
+licensee {
+    allow("Apache-2.0")
+    allow("BSD-3-Clause")
+    allowUrl("https://github.com/kizitonwose/calendar/blob/main/LICENSE.md")
+    allowUrl("https://opensource.org/licenses/MIT")
+}
+
+dependencies {
+    implementation project(':core-common')
+    implementation project(':core-database')
+    implementation project(':core-ui')
+    implementation project(':feature-dashboard')
+    implementation project(':feature-insights')
+    implementation project(':feature-misc')
+
+    coreLibraryDesugaring libs.gradle.android.desugar
+
+    debugImplementation platform(libs.compose.bom)
+    debugImplementation libs.compose.ui.tooling
+
+    implementation libs.androidx.navigation.compose
+
+    implementation libs.logcat
+    implementation libs.accompanist.systemuicontroller
+
+    implementation libs.hilt.android
+    implementation libs.hilt.navigation.compose
+    ksp libs.hilt.compiler
+
+    // Required by layout inspector
+    debugRuntimeOnly libs.kotlin.reflect
+
+    debugImplementation libs.showkase.full
+    kspDebug libs.showkase.processor
+
+    testImplementation libs.kotlin.coroutines.test
+}
