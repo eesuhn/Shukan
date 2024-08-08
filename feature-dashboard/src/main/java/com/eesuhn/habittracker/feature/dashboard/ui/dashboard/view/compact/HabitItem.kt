@@ -153,7 +153,14 @@ fun ActionSquare(
     Box(
         modifier = Modifier
             .habitActionSemantics(action)
-            .satisfyingToggleable(vibrator, Dp.Unspecified, true, action.toggled, onToggle, onSinglePress)
+            .satisfyingToggleable(
+                vibrator,
+                Dp.Unspecified,
+                true,
+                action.toggled,
+                onToggle,
+                onSinglePress
+            )
             .aspectRatio(1f)
             .padding(1.dp)
             .border(1.dp, borderColor)

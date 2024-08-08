@@ -36,7 +36,10 @@ fun Onboarding(state: OnboardingState) {
             .animateContentSize(animationSpec = tween(500))
             .padding(16.dp)
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.medium)
+            .background(
+                MaterialTheme.colorScheme.surfaceVariant,
+                shape = MaterialTheme.shapes.medium
+            )
             .padding(16.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {

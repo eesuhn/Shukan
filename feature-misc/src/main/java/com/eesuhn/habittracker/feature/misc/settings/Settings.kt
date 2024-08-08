@@ -3,10 +3,16 @@ package com.eesuhn.habittracker.feature.misc.settings
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -17,11 +23,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,45 +35,6 @@ import com.eesuhn.habittracker.core.ui.theme.PreviewTheme
 import com.eesuhn.habittracker.core.ui.theme.isDynamicThemeAvailable
 import com.eesuhn.habittracker.feature.misc.R
 import com.eesuhn.habittracker.core.ui.R as coreR
-
-@SuppressLint("ComposableLambdaParameterNaming")
-@Composable
-fun SettingsScreen(
-    viewModel: SettingsViewModel,
-    navigateBack: () -> Unit,
-    navigateToLicenses: () -> Unit,
-    debugSettings: @Composable () -> Unit
-) {
-    val context = LocalContext.current
-
-    val onRateClick = { context.openUrl(viewModel.appInfo.marketUrl) }
-    val onSourceClick = { context.openUrl(viewModel.appInfo.urlSourceCode) }
-    val onPrivacyClick = { context.openUrl(viewModel.appInfo.urlPrivacyPolicy) }
-
-    val crashReportingEnabled by viewModel.crashReportingEnabled.collectAsState()
-    val onCrashReportingChange: (Boolean) -> Unit = {
-        viewModel.setCrashReportingEnabled(it)
-        Toast.makeText(context, R.string.settings_crash_reporting_restart_message, Toast.LENGTH_LONG).show()
-    }
-    val dynamicColorEnabled by viewModel.dynamicColor.collectAsState()
-    val onDynamicColorChange: (Boolean) -> Unit = {
-        viewModel.setDynamicColorEnabled(it)
-    }
-
-    SettingsScreen(
-        viewModel.appInfo,
-        crashReportingEnabled,
-        dynamicColorEnabled,
-        navigateBack,
-        onRateClick,
-        onSourceClick,
-        navigateToLicenses,
-        onPrivacyClick,
-        onCrashReportingChange,
-        onDynamicColorChange,
-        debugSettings
-    )
-}
 
 @SuppressLint("ComposableLambdaParameterNaming")
 @Composable
@@ -88,7 +52,9 @@ fun SettingsScreen(
     debugSettings: @Composable () -> Unit
 ) {
     Column(
-        Modifier.background(MaterialTheme.colorScheme.background).fillMaxSize()
+        Modifier
+            .background(MaterialTheme.colorScheme.background)
+            .fillMaxSize()
     ) {
         AppDefaultAppBar(
             title = { Text(stringResource(R.string.settings_title)) },
@@ -99,7 +65,9 @@ fun SettingsScreen(
             }
         )
         Column(
-            modifier = Modifier.verticalScroll(rememberScrollState()).fillMaxSize()
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .fillMaxSize()
         ) {
             if (isDynamicThemeAvailable()) {
                 SwitchSetting(
@@ -144,10 +112,12 @@ fun SettingsScreen(
 @Composable
 fun SettingHeader(name: String) {
     Column {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(1.dp)
-            .background(MaterialTheme.colorScheme.outlineVariant))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+                .background(MaterialTheme.colorScheme.outlineVariant)
+        )
         Text(
             modifier = Modifier
                 .fillMaxWidth()
@@ -201,7 +171,9 @@ fun NavigationSetting(
 internal fun TextRow(name: String, subtitle: String) {
     Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
         Text(
-            modifier = Modifier.fillMaxWidth().padding(start = 56.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 56.dp),
             text = name,
             style = MaterialTheme.typography.bodyMedium
         )
@@ -209,7 +181,9 @@ internal fun TextRow(name: String, subtitle: String) {
         Text(
             text = subtitle,
             style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.fillMaxWidth().padding(start = 56.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 56.dp)
         )
     }
 }
@@ -229,7 +203,13 @@ private fun Context.openUrl(url: String) {
 fun PreviewSettingsScreen() {
     PreviewTheme {
         SettingsScreen(
-            appInfo = AppInfo(versionName = "1.0.0", buildType = "debug", appId = "com.eesuhn.habittracker", urlPrivacyPolicy = "", urlSourceCode = ""),
+            appInfo = AppInfo(
+                versionName = "1.0.0",
+                buildType = "debug",
+                appId = "com.eesuhn.habittracker",
+                urlPrivacyPolicy = "",
+                urlSourceCode = ""
+            ),
             crashReportingEnabled = true,
             dynamicColorEnabled = true,
             onBack = {},

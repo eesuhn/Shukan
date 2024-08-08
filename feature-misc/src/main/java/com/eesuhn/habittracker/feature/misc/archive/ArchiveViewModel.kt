@@ -28,7 +28,7 @@ enum class ArchiveEvent {
 class ArchiveViewModel @Inject constructor(
     private val dao: HabitDao,
     private val telemetry: Telemetry
-): ViewModel() {
+) : ViewModel() {
 
     private val eventChannel = Channel<ArchiveEvent>(Channel.BUFFERED)
     val archiveEvent = eventChannel.receiveAsFlow()

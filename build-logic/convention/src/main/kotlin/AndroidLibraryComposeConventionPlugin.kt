@@ -20,7 +20,8 @@ class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
             extensions.configure<LibraryExtension> {
                 buildFeatures.compose = true
 
-                composeOptions.kotlinCompilerExtensionVersion = libs.findVersion("compose-compiler").get().toString()
+                composeOptions.kotlinCompilerExtensionVersion =
+                    libs.findVersion("compose-compiler").get().toString()
 
                 // kotlinOptions { ... }
                 (this as ExtensionAware).extensions.configure<KotlinJvmOptions>("kotlinOptions") {

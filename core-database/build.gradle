@@ -31,7 +31,6 @@ dependencies {
 
     testImplementation libs.junit
 
-    androidTestImplementation project(':core-testing')
     androidTestImplementation libs.kotlin.coroutines.test
     androidTestImplementation libs.androidx.junit.ext
     androidTestImplementation libs.turbine

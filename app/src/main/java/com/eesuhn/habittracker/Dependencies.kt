@@ -1,9 +1,7 @@
 package com.eesuhn.habittracker
 
-import android.app.Application
-import com.eesuhn.habittracker.core.database.HabitDao
-import com.eesuhn.habittracker.feature.misc.settings.AppInfo
 //import com.eesuhn.habittracker.feature.widgets.base.WidgetUpdater
+import com.eesuhn.habittracker.feature.misc.settings.AppInfo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

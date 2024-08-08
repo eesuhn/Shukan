@@ -92,7 +92,9 @@ fun HabitCard(
             .fillMaxWidth()
             .draggableCard(dragOffset),
     ) {
-        Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+        Column(modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()) {
             Text(
                 text = habit.name,
                 style = AppTextStyle.habitTitle
@@ -101,7 +103,9 @@ fun HabitCard(
             ActionHistoryLabel(totalActionCount, actionHistory)
 
             ActionCircles(
-                modifier = Modifier.align(Alignment.End).padding(top = 8.dp),
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(top = 8.dp),
                 actions = actions.takeLast(Constants.DayCount).toImmutableList(),
                 habitColor = habit.color,
                 onActionToggle = { action, dayIndex ->

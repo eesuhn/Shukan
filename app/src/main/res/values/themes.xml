@@ -1,4 +1,5 @@
 <resources>
+
     <style name="HabitTrackerTheme">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>

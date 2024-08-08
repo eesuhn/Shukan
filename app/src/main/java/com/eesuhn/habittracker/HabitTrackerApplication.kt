@@ -10,7 +10,8 @@ import javax.inject.Inject
 @HiltAndroidApp(Application::class)
 class HabitTrackerApplication : Hilt_HabitTrackerApplication() {
 
-    @Inject lateinit var telemetry: Telemetry
+    @Inject
+    lateinit var telemetry: Telemetry
 
     override fun onCreate() {
         super.onCreate()

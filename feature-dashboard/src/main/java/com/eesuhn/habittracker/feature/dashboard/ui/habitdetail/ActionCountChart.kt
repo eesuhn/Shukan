@@ -61,12 +61,16 @@ fun ActionCountChart(
     ) { items ->
         val maxValue = items.maxByOrNull { it.value }!!.value
         LazyRow(
-            modifier = modifier.height(200.dp).fillMaxWidth(),
+            modifier = modifier
+                .height(200.dp)
+                .fillMaxWidth(),
             reverseLayout = true
         ) {
             itemsIndexed(items) { index, chartItem ->
                 Column(
-                    modifier = Modifier.padding(horizontal = 4.dp).fillMaxHeight()
+                    modifier = Modifier
+                        .padding(horizontal = 4.dp)
+                        .fillMaxHeight()
                 ) {
                     Column(
                         modifier = Modifier.weight(1f),
@@ -76,12 +80,15 @@ fun ActionCountChart(
                         val heightRatio = if (maxValue > 0) value / maxValue.toFloat() else 0f
                         val isEven = index % 2 == 0
                         Text(
-                            modifier = Modifier.width(BarWidth).padding(top = 8.dp, bottom = 4.dp),
+                            modifier = Modifier
+                                .width(BarWidth)
+                                .padding(top = 8.dp, bottom = 4.dp),
                             text = value.toString(),
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.bodySmall
                         )
-                        val background = if (isEven) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
+                        val background =
+                            if (isEven) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
                         Box(
                             modifier = Modifier
                                 .background(background, shape = RoundedCornerShape(4.dp))
@@ -90,7 +97,9 @@ fun ActionCountChart(
                         )
                     }
                     Text(
-                        modifier = Modifier.width(BarWidth).padding(top = 4.dp),
+                        modifier = Modifier
+                            .width(BarWidth)
+                            .padding(top = 4.dp),
                         text = chartItem.label,
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.bodySmall

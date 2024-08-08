@@ -67,16 +67,28 @@ internal val typography = Typography(
         fontWeight = FontWeight.Bold // Lato doesn't have medium
     ),
     titleSmall = defaultTextStyle.copy(
-        fontSize = 14.sp, lineHeight = 20.sp, letterSpacing = 0.1.sp, fontWeight = FontWeight.Bold // Lato doesn't have medium
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.1.sp,
+        fontWeight = FontWeight.Bold // Lato doesn't have medium
     ),
     labelLarge = defaultTextStyle.copy(
-        fontSize = 14.sp, lineHeight = 20.sp, letterSpacing = 0.1.sp, fontWeight = FontWeight.Bold // Lato doesn't have medium
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.1.sp,
+        fontWeight = FontWeight.Bold // Lato doesn't have medium
     ),
     labelMedium = defaultTextStyle.copy(
-        fontSize = 12.sp, lineHeight = 16.sp, letterSpacing = 0.5.sp, fontWeight = FontWeight.Bold // Lato doesn't have medium
+        fontSize = 12.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.5.sp,
+        fontWeight = FontWeight.Bold // Lato doesn't have medium
     ),
     labelSmall = defaultTextStyle.copy(
-        fontSize = 11.sp, lineHeight = 16.sp, letterSpacing = 0.5.sp, fontWeight = FontWeight.Bold // Lato doesn't have medium
+        fontSize = 11.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.5.sp,
+        fontWeight = FontWeight.Bold // Lato doesn't have medium
     ),
     bodyLarge = defaultTextStyle.copy(
         fontSize = 16.sp, lineHeight = 24.sp, letterSpacing = 0.5.sp

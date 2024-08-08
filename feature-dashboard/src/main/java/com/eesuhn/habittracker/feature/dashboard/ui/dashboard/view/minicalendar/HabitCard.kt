@@ -69,14 +69,18 @@ fun HabitCard(
             .fillMaxWidth()
             .draggableCard(dragOffset),
     ) {
-        Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+        Column(modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()) {
             Text(
                 text = habit.name,
                 style = AppTextStyle.habitTitle
             )
 
             Row(
-                modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 12.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 val todayAction = actions.last()
@@ -141,7 +145,9 @@ fun ActionButton(
     onActionToggle: (Boolean) -> Unit
 ) {
     Button(
-        modifier = Modifier.animateContentSize().padding(end = 8.dp),
+        modifier = Modifier
+            .animateContentSize()
+            .padding(end = 8.dp),
         onClick = { onActionToggle(!toggled) },
         colors = ButtonDefaults.buttonColors(
             containerColor = color.composeColor
@@ -154,7 +160,8 @@ fun ActionButton(
                 modifier = Modifier.padding(end = 4.dp)
             )
         }
-        val label = stringResource(if (toggled) R.string.dashboard_toggle_label_toggled else R.string.dashboard_toggle_label_untoggled)
+        val label =
+            stringResource(if (toggled) R.string.dashboard_toggle_label_toggled else R.string.dashboard_toggle_label_untoggled)
         Text(text = label)
     }
 }

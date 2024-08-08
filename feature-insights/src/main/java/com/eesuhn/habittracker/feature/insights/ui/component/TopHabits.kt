@@ -28,8 +28,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.airbnb.android.showkase.annotation.ShowkaseComposable
 import com.eesuhn.habittracker.core.model.HabitId
-import com.eesuhn.habittracker.core.ui.component.ErrorView
-import com.eesuhn.habittracker.core.ui.state.Result
 import com.eesuhn.habittracker.core.ui.theme.CoreIcons
 import com.eesuhn.habittracker.core.ui.theme.LocalAppColors
 import com.eesuhn.habittracker.core.ui.theme.PreviewTheme
@@ -123,23 +121,21 @@ private fun HabitBar(
     val height = 8.dp
     val shape = RoundedCornerShape(4.dp)
 
-    Box(modifier = modifier
+    Box(
+        modifier = modifier
             .clip(shape)
             .fillMaxWidth()
             .height(height)
             .background(LocalAppColors.current.gray1)
     ) {
-        Box(modifier = Modifier
-            .clip(shape)
-            .fillMaxWidth(fraction = progress)
-            .height(height)
-            .background(MaterialTheme.colorScheme.tertiary)
+        Box(
+            modifier = Modifier
+                .clip(shape)
+                .fillMaxWidth(fraction = progress)
+                .height(height)
+                .background(MaterialTheme.colorScheme.tertiary)
         )
     }
-}
-
-private fun hasEnoughData(habits: List<TopHabitItem>): Boolean {
-    return habits.size >= 2
 }
 
 @Preview
@@ -182,7 +178,7 @@ fun PreviewTopHabitsTable() {
     PreviewTheme {
         TopHabitsTable(
             habits = topHabits,
-            onHabitClick = {  }
+            onHabitClick = { }
         )
     }
 }

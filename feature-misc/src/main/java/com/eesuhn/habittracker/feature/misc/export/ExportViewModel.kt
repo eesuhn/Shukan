@@ -35,12 +35,16 @@ class ExportViewModel @Inject constructor(
         .combine(habitDao.getAllActions(), ::combineDataSummary)
         .distinctUntilChanged()
 
-    val exportState: MutableStateFlow<ExportState> = MutableStateFlow(ExportState(outputFileURI = null, error = null))
+    val exportState: MutableStateFlow<ExportState> =
+        MutableStateFlow(ExportState(outputFileURI = null, error = null))
 
-    val importState: MutableStateFlow<ImportState> = MutableStateFlow(ImportState(backupFileURI = null, backupSummary = null, error = null))
+    val importState: MutableStateFlow<ImportState> =
+        MutableStateFlow(ImportState(backupFileURI = null, backupSummary = null, error = null))
 
     val exportDocumentName
-        get() = "HabitTracker-backup-${LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE)}.zip"
+        get() = "HabitTracker-backup-${
+            LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE)
+        }.zip"
     val exportDocumentMimeType = "application/zip"
     val importDocumentFormats = arrayOf(exportDocumentMimeType)
     val createDocumentContract = ActivityResultContracts.CreateDocument(exportDocumentMimeType)
@@ -88,7 +92,9 @@ class ExportViewModel @Inject constructor(
         if (uri == null) {
             telemetry.logNonFatal(IllegalArgumentException("onOpenDocumentResult: null URI"))
             importState.value = ImportState(
-                backupFileURI = null, backupSummary = null, error = ExportImportError.FilePickerURIEmpty
+                backupFileURI = null,
+                backupSummary = null,
+                error = ExportImportError.FilePickerURIEmpty
             )
             return
         }
@@ -103,7 +109,9 @@ class ExportViewModel @Inject constructor(
                 if (backup.backupVersion > BACKUP_VERSION) {
                     telemetry.logNonFatal(IllegalArgumentException("Backup version in ZIP too high: ${backup.backupVersion}, app defines $BACKUP_VERSION"))
                     importState.value = ImportState(
-                        backupFileURI = uri, backupSummary = null, error = ExportImportError.BackupVersionTooHigh
+                        backupFileURI = uri,
+                        backupSummary = null,
+                        error = ExportImportError.BackupVersionTooHigh
                     )
                     return@launch
                 }
@@ -117,7 +125,9 @@ class ExportViewModel @Inject constructor(
             } catch (e: Exception) {
                 telemetry.logNonFatal(e)
                 importState.value = ImportState(
-                    backupFileURI = null, backupSummary = null, error = ExportImportError.ImportFailed
+                    backupFileURI = null,
+                    backupSummary = null,
+                    error = ExportImportError.ImportFailed
                 )
             }
         }
@@ -128,11 +138,14 @@ class ExportViewModel @Inject constructor(
             try {
                 val backup = loadBackup(uri)
                 habitDao.restoreBackup(backup.habits, backup.actions)
-                importState.value = ImportState(backupFileURI = null, backupSummary = null, error = null)
+                importState.value =
+                    ImportState(backupFileURI = null, backupSummary = null, error = null)
             } catch (e: Exception) {
                 telemetry.logNonFatal(e)
                 importState.value = ImportState(
-                    backupFileURI = null, backupSummary = null, error = ExportImportError.ImportFailed
+                    backupFileURI = null,
+                    backupSummary = null,
+                    error = ExportImportError.ImportFailed
                 )
             }
         }

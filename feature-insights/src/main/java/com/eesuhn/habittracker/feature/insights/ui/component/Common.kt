@@ -66,7 +66,9 @@ fun InsightHeader(
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(horizontal = 16.dp).align(Alignment.CenterVertically),
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .align(Alignment.CenterVertically),
             )
             IconButton(
                 onClick = { expanded = !expanded },
@@ -96,9 +98,14 @@ fun InsightHeader(
 
 @Composable
 fun EmptyView(label: String) {
-    Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp)) {
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp)) {
         Icon(
-            modifier = Modifier.size(64.dp).align(Alignment.CenterHorizontally),
+            modifier = Modifier
+                .size(64.dp)
+                .align(Alignment.CenterHorizontally),
             painter = painterResource(insightsR.drawable.ic_insights_placeholder),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onSurfaceVariant

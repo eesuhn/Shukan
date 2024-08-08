@@ -8,27 +8,27 @@ import javax.inject.Singleton
 
 object OnboardingData {
     val steps: ImmutableList<Step> = persistentListOf(
-            Step(
-                index = 0,
-                title = R.string.onboarding_step_create_title,
-                subtitle = R.string.onboarding_step_create_subtitle
-            ),
-            Step(
-                index = 1,
-                title = R.string.onboarding_step_longpress_title,
-                subtitle = R.string.onboarding_step_longpress_subtitle
-            ),
-            Step(
-                index = 2,
-                title = R.string.onboarding_step_details_title,
-                subtitle = R.string.onboarding_step_details_subtitle
-            ),
-            Step(
-                index = 3,
-                title = R.string.onboarding_step_insights_title,
-                subtitle = R.string.onboarding_step_insights_subtitle
-            )
+        Step(
+            index = 0,
+            title = R.string.onboarding_step_create_title,
+            subtitle = R.string.onboarding_step_create_subtitle
+        ),
+        Step(
+            index = 1,
+            title = R.string.onboarding_step_longpress_title,
+            subtitle = R.string.onboarding_step_longpress_subtitle
+        ),
+        Step(
+            index = 2,
+            title = R.string.onboarding_step_details_title,
+            subtitle = R.string.onboarding_step_details_subtitle
+        ),
+        Step(
+            index = 3,
+            title = R.string.onboarding_step_insights_title,
+            subtitle = R.string.onboarding_step_insights_subtitle
         )
+    )
     val totalSteps = steps.size
 }
 

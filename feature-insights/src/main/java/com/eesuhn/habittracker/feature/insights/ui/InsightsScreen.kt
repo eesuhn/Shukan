@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -16,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.eesuhn.habittracker.core.model.HabitId
-import com.eesuhn.habittracker.core.ui.component.AppBarOverflowMenuAction
 import com.eesuhn.habittracker.core.ui.component.AppDefaultRootAppBar
 import com.eesuhn.habittracker.core.ui.theme.AppTextStyle
 import com.eesuhn.habittracker.core.ui.theme.CoreIcons
@@ -71,7 +69,10 @@ private fun InsightsAppBar(
         },
         actions = {
             IconButton(onClick = onArchiveClick) {
-                Icon(painter = CoreIcons.Archive, contentDescription = stringResource(coreR.string.menu_archive))
+                Icon(
+                    painter = CoreIcons.Archive,
+                    contentDescription = stringResource(coreR.string.menu_archive)
+                )
             }
         },
     )

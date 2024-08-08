@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
@@ -25,13 +24,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.airbnb.android.showkase.annotation.ShowkaseComposable
 import com.eesuhn.habittracker.core.model.HabitId
-import com.eesuhn.habittracker.core.ui.component.ErrorView
-import com.eesuhn.habittracker.core.ui.state.Result
 import com.eesuhn.habittracker.core.ui.theme.CoreIcons
 import com.eesuhn.habittracker.core.ui.theme.PreviewTheme
 import com.eesuhn.habittracker.feature.insights.R
 import com.eesuhn.habittracker.feature.insights.model.TopDayItem
-import com.eesuhn.habittracker.feature.insights.ui.InsightsIcons
 import com.eesuhn.habittracker.feature.insights.ui.InsightsViewModel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -66,7 +62,9 @@ private fun TopDaysRow(
     ) {
         Text(
             text = item.name,
-            modifier = Modifier.weight(0.50f).padding(start = 4.dp),
+            modifier = Modifier
+                .weight(0.50f)
+                .padding(start = 4.dp),
             overflow = TextOverflow.Ellipsis,
             softWrap = false,
             style = MaterialTheme.typography.bodyMedium,
@@ -100,10 +98,6 @@ private fun TopDaysRow(
             )
         }
     }
-}
-
-private fun hasEnoughData(days: List<TopDayItem>): Boolean {
-    return days.any { it.count >= 2 }
 }
 
 @Preview
@@ -146,7 +140,7 @@ fun PreviewTopDaysTable() {
     PreviewTheme {
         TopDaysTable(
             items = topDays,
-            onHabitClick = {  }
+            onHabitClick = { }
         )
     }
 }

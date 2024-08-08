@@ -9,7 +9,6 @@
 
     <string name="dashboard_title">My Habits</string>
     <string name="dashboard_change_layout">Change layout</string>
-    <string name="dashboard_empty_label">You don\'t have any habits yet.</string>
     <string name="dashboard_toggle_help">Long press to toggle</string>
     <string name="dashboard_toggle_label_toggled">Done</string>
     <string name="dashboard_toggle_label_untoggled">Mark Done</string>
@@ -23,7 +22,6 @@
     <string name="dashboard_config_dialog_title">Choose a layout</string>
     <string name="dashboard_config_dialog_fiveday">Five day</string>
     <string name="dashboard_config_dialog_minicalendar">Mini calendar</string>
-    <string name="dashboard_config_dialog_compact">Compact</string>
 
     <string name="common_action_count_clean">Start today</string>
     <plurals name="common_action_count_total">
@@ -44,12 +42,11 @@
     <string name="habitdetails_singlestat_completionrate">completion rate</string>
     <string name="habitdetails_archive_confirm">Archive</string>
     <string name="habitdetails_archive_title">Archive habit?</string>
-    <string name="habitdetails_archive_description">This habit will be moved to the archive. If you change your mind, you can unarchive the habit without data loss, or delete it forever.</string>
+    <string name="habitdetails_archive_description">This habit will be moved to the archive. \nIf you change your mind, you can unarchive the habit without data loss, or delete it forever.</string>
     <string name="habitdetails_edit_name_label">Name</string>
     <string name="habitdetails_edit_notes_label">Notes</string>
     <string name="habitdetails_error">Failed to load habit details</string>
     <string name="habitdetails_error_stats">Failed to load habit statistics</string>
-    <string name="habitdetails_actioncount_selector_label">Times a</string>
     <string name="habitdetails_actioncount_selector_weekly">Week</string>
     <string name="habitdetails_actioncount_selector_monthly">Month</string>
 </resources>

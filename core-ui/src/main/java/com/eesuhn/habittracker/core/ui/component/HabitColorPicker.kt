@@ -51,7 +51,9 @@ fun HabitColorPicker(
     val colors = remember { Habit.Color.values().toList() }
 
     LazyRow(
-        Modifier.padding(vertical = 32.dp).fillMaxWidth(),
+        Modifier
+            .padding(vertical = 32.dp)
+            .fillMaxWidth(),
         contentPadding = PaddingValues(start = 32.dp, end = 32.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically

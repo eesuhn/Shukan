@@ -1,6 +1,10 @@
 package com.eesuhn.habittracker.feature.dashboard.ui.dashboard.view.fiveday
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,11 +29,14 @@ fun FiveDayHabitList(
     onMove: (ItemMoveEvent) -> Unit
 ) {
     Column(
-        horizontalAlignment = Alignment.End
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val width = Constants.CircleSize * 5 + Constants.CirclePadding * 8
+        val width = Constants.CircleSize * 4 + Constants.CirclePadding * 2
         DayLegend(
-            modifier = Modifier.wrapContentWidth(Alignment.End).width(width).padding(bottom = 12.dp, end = 120.dp),
+            modifier = Modifier
+                .wrapContentWidth(Alignment.CenterHorizontally)
+                .width(width)
+                .padding(bottom = 8.dp),
             mostRecentDay = LocalDate.now(),
             pastDayCount = 4
         )

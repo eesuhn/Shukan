@@ -36,15 +36,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import com.airbnb.android.showkase.annotation.ShowkaseComposable
-import com.kizitonwose.calendar.core.CalendarDay
-import com.kizitonwose.calendar.core.DayPosition
 import com.eesuhn.habittracker.core.model.Habit
 import com.eesuhn.habittracker.core.ui.component.CalendarDayLegend
 import com.eesuhn.habittracker.core.ui.component.CalendarPager
@@ -58,6 +55,8 @@ import com.eesuhn.habittracker.feature.insights.R
 import com.eesuhn.habittracker.feature.insights.model.HeatmapMonth
 import com.eesuhn.habittracker.feature.insights.ui.InsightsIcons
 import com.eesuhn.habittracker.feature.insights.ui.InsightsViewModel
+import com.kizitonwose.calendar.core.CalendarDay
+import com.kizitonwose.calendar.core.DayPosition
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
@@ -80,7 +79,13 @@ fun Heatmap(viewModel: InsightsViewModel) {
         viewModel.fetchCompletedHabitsAt(it)
     }
 
-    Heatmap(StableHolder(yearMonth), heatmapState, completedHabitsAtDate, onMonthChange, onLoadHabitsAt)
+    Heatmap(
+        StableHolder(yearMonth),
+        heatmapState,
+        completedHabitsAtDate,
+        onMonthChange,
+        onLoadHabitsAt
+    )
 }
 
 @Composable
@@ -113,12 +118,20 @@ fun Heatmap(
                     if (!enoughData) {
                         EmptyView()
                     }
-                    HeatmapCalendar(yearMonth, heatmapData, completedHabitsAtDate, onLoadHabitsAt, onMonthChange)
+                    HeatmapCalendar(
+                        yearMonth,
+                        heatmapData,
+                        completedHabitsAtDate,
+                        onLoadHabitsAt,
+                        onMonthChange
+                    )
 
                     if (enoughData) {
                         HeatmapLegend(
                             heatmapData,
-                            modifier = Modifier.align(Alignment.End).padding(top = 8.dp)
+                            modifier = Modifier
+                                .align(Alignment.End)
+                                .padding(top = 8.dp)
                         )
                     }
                 }
@@ -126,6 +139,7 @@ fun Heatmap(
                 Result.Loading -> {
                     Spacer(Modifier.height(280.dp))
                 }
+
                 is Result.Failure -> {
                     ErrorView(label = stringResource(R.string.insights_heatmap_error))
                 }
@@ -175,7 +189,11 @@ private fun DayCell(
     Box(
         modifier = Modifier
             .semantics(mergeDescendants = true) {
-                text = AnnotatedString(DateTimeFormatter.ofPattern("LL dd").format(day.date))
+                text = AnnotatedString(
+                    DateTimeFormatter
+                        .ofPattern("LL dd")
+                        .format(day.date)
+                )
             }
             .padding(4.dp)
             .then(todayModifier)
@@ -242,11 +260,15 @@ private fun HeatmapLegend(
         Text(
             text = stringResource(R.string.insights_heatmap_legend_label),
             style = MaterialTheme.typography.labelMedium,
-            modifier = Modifier.padding(end = 8.dp).alignByBaseline()
+            modifier = Modifier
+                .padding(end = 8.dp)
+                .alignByBaseline()
         )
 
         Row(
-            Modifier.border(1.dp, LocalAppColors.current.gray2).alignByBaseline()
+            Modifier
+                .border(1.dp, LocalAppColors.current.gray2)
+                .alignByBaseline()
         ) {
             heatmapData.bucketMaxValues.forEach {
                 val bucketIndex = it.first
@@ -255,14 +277,18 @@ private fun HeatmapLegend(
                     bucketIndex, heatmapData.bucketCount
                 )
                 Box(
-                    Modifier.background(backgroundColor).size(24.dp)
+                    Modifier
+                        .background(backgroundColor)
+                        .size(24.dp)
                 ) {
                     Text(
                         text = maxValue.toString(),
                         color = contentColorFor(backgroundColor),
                         textAlign = TextAlign.Center,
                         fontSize = 12.sp,
-                        modifier = Modifier.fillMaxSize().padding(top = 5.dp)
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = 5.dp)
                     )
                 }
             }

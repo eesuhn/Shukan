@@ -26,7 +26,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -136,17 +135,24 @@ private fun HabitDetailScreen(
     onArchive: (Habit) -> Unit,
     onDayToggle: (LocalDate, Action) -> Unit,
 ) {
-    Column(Modifier.background(MaterialTheme.colorScheme.background).fillMaxSize()) {
+    Column(
+        Modifier
+            .background(MaterialTheme.colorScheme.background)
+            .fillMaxSize()) {
         val scrollState = rememberScrollState()
 
         HabitDetailHeader(habitDetailState, singleStats, scrollState, onBack, onEdit, onArchive)
 
-        Column(Modifier.verticalScroll(scrollState).padding(16.dp)) {
+        Column(
+            Modifier
+                .verticalScroll(scrollState)
+                .padding(16.dp)) {
             when (habitDetailState) {
                 is Result.Success -> Calendar(habitDetailState, onDayToggle)
                 Result.Loading -> {
                     // No calendar and stats in loading state
                 }
+
                 is Result.Failure -> {
                     ErrorView(
                         label = stringResource(R.string.habitdetails_error_stats),
@@ -161,6 +167,7 @@ private fun HabitDetailScreen(
                     label = stringResource(R.string.habitdetails_error_stats),
                     modifier = Modifier.padding(top = 16.dp)
                 )
+
                 Result.Loading -> {
                     // No chart in loading state
                 }
@@ -224,7 +231,9 @@ private fun HabitStats(
             }
         }
         ActionCountChart(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp, start = 16.dp, end = 16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp, start = 16.dp, end = 16.dp),
             values = chartData.items
         )
     }
@@ -241,7 +250,9 @@ private fun ToggleButton(
     // Replace with SegmentedButton once available in Compose Material3
     OutlinedButton(
         onClick = {
-            if (!checked) { onCheckedChange(false) }
+            if (!checked) {
+                onCheckedChange(false)
+            }
         },
         colors = toggleButtonColors(checked),
         shape = shape
@@ -278,13 +289,15 @@ fun PreviewHabitDetailScreen() {
                 )
             ),
             singleStats = SingleStats(LocalDate.now(), 2, 1, 0.15f),
-            chartData = Result.Success(ActionCountChart(
-                persistentListOf(
-                    ActionCountChart.ChartItem("W23", 2022, 3),
-                    ActionCountChart.ChartItem("W24", 2022, 0),
-                    ActionCountChart.ChartItem("W25", 2022, 6),
-                ),
-                ActionCountChart.Type.Weekly)
+            chartData = Result.Success(
+                ActionCountChart(
+                    persistentListOf(
+                        ActionCountChart.ChartItem("W23", 2022, 3),
+                        ActionCountChart.ChartItem("W24", 2022, 0),
+                        ActionCountChart.ChartItem("W25", 2022, 6),
+                    ),
+                    ActionCountChart.Type.Weekly
+                )
             ),
             onChartTypeChange = {},
             onBack = { },

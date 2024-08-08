@@ -1,9 +1,9 @@
 package com.eesuhn.habittracker.feature.dashboard.ui.addhabit
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -17,10 +17,14 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -32,7 +36,6 @@ import androidx.compose.ui.unit.dp
 import com.airbnb.android.showkase.annotation.ShowkaseComposable
 import com.eesuhn.habittracker.core.model.Habit
 import com.eesuhn.habittracker.core.ui.component.AppDefaultAppBar
-import com.eesuhn.habittracker.core.ui.component.HabitColorPicker
 import com.eesuhn.habittracker.core.ui.component.TextFieldError
 import com.eesuhn.habittracker.core.ui.state.asEffect
 import com.eesuhn.habittracker.core.ui.theme.PreviewTheme
@@ -72,16 +75,22 @@ fun AddHabitForm(
             onSave(habit)
         }
     }
-    Column(Modifier.fillMaxWidth().padding(bottom = 16.dp)) {
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp)) {
         val nameFocusRequester = remember { FocusRequester() }
         DisposableEffect(Unit) {
             // Using a DisposableEffect with Unit as key to only run the effect once, not in every
             // recomposition
             nameFocusRequester.requestFocus()
-            onDispose {  }
+            onDispose { }
         }
 
-        val selectedHabitColor by animateColorAsState(targetValue = color.composeColor, label = "AddHabitForm")
+        val selectedHabitColor by animateColorAsState(
+            targetValue = color.composeColor,
+            label = "AddHabitForm"
+        )
         val customTextFieldColors = OutlinedTextFieldDefaults.colors(
             cursorColor = selectedHabitColor,
             focusedBorderColor = selectedHabitColor,
@@ -117,7 +126,9 @@ fun AddHabitForm(
         })
 
         OutlinedTextField(
-            modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(horizontal = 32.dp, vertical = 16.dp)
+                .fillMaxWidth(),
             value = notes,
             onValueChange = { notes = it },
             label = { Text(stringResource(R.string.addhabit_notes_label)) },

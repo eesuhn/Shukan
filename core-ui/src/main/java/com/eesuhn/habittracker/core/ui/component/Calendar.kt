@@ -31,14 +31,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.airbnb.android.showkase.annotation.ShowkaseComposable
-import com.kizitonwose.calendar.compose.HorizontalCalendar
-import com.kizitonwose.calendar.compose.rememberCalendarState
-import com.kizitonwose.calendar.core.CalendarDay
-import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.eesuhn.habittracker.core.ui.R
 import com.eesuhn.habittracker.core.ui.recomposition.StableHolder
 import com.eesuhn.habittracker.core.ui.theme.CoreIcons
 import com.eesuhn.habittracker.core.ui.theme.PreviewTheme
+import com.kizitonwose.calendar.compose.HorizontalCalendar
+import com.kizitonwose.calendar.compose.rememberCalendarState
+import com.kizitonwose.calendar.core.CalendarDay
+import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import java.time.Year
@@ -122,20 +122,24 @@ fun CalendarPager(
     }
 }
 
-private val pagerTransitionSpec: AnimatedContentTransitionScope<YearMonth>.() -> ContentTransform = {
-    if (targetState.isAfter(initialState)) {
-        // Slide in from right, slide out to left
-        (slideInHorizontally { it } + fadeIn()).togetherWith(slideOutHorizontally { -it } + fadeOut())
-    } else {
-        // Slide in from left, slide out to right
-        (slideInHorizontally { -it } + fadeIn()).togetherWith(slideOutHorizontally { it } + fadeOut())
+private val pagerTransitionSpec: AnimatedContentTransitionScope<YearMonth>.() -> ContentTransform =
+    {
+        if (targetState.isAfter(initialState)) {
+            // Slide in from right, slide out to left
+            (slideInHorizontally { it } + fadeIn()).togetherWith(slideOutHorizontally { -it } + fadeOut())
+        } else {
+            // Slide in from left, slide out to right
+            (slideInHorizontally { -it } + fadeIn()).togetherWith(slideOutHorizontally { it } + fadeOut())
+        }
     }
-}
 
 @Composable
 fun CalendarDayLegend() {
     val weekFields = WeekFields.of(Locale.getDefault())
-    HorizontalGrid(Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
+    HorizontalGrid(
+        Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)) {
         (0..6).map {
             val day = weekFields.firstDayOfWeek.plus(it.toLong())
             val label = day.getDisplayName(TextStyle.SHORT, Locale.getDefault())

@@ -18,7 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.eesuhn.habittracker.core.ui.theme.AppTransition
 
-sealed class Screen constructor(
+sealed class Screen(
     val route: String,
     val arguments: List<NamedNavArgument> = emptyList(),
     val enterTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition = { AppTransition.defaultEnter },
@@ -127,10 +127,6 @@ object Destination {
 
         fun buildRoute(habitId: Int) = "habit_details/$habitId"
     }
-
-    object Licenses : Screen(
-        route = "licenses"
-    )
 
     object Archive : Screen(
         route = "archive",

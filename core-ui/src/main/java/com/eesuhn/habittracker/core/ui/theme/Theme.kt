@@ -145,9 +145,11 @@ fun AppTheme(
         dynamicColor && isDarkTheme -> {
             dynamicDarkColorScheme(LocalContext.current)
         }
+
         dynamicColor && !isDarkTheme -> {
             dynamicLightColorScheme(LocalContext.current)
         }
+
         isDarkTheme -> DarkColors
         else -> LightColors
     }

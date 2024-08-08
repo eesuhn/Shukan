@@ -29,13 +29,11 @@ dependencies {
     implementation libs.showkase.annotation
     kspDebug libs.showkase.processor
 
-    testImplementation project(':core-testing')
     testImplementation libs.junit
     testImplementation libs.kotlin.coroutines.test
     testImplementation libs.mockito.kotlin
     testImplementation libs.turbine
 
-    androidTestImplementation project(':core-testing')
     androidTestImplementation libs.compose.ui.test
     androidTestImplementation libs.hilt.testing
     androidTestImplementation libs.androidx.room.runtime

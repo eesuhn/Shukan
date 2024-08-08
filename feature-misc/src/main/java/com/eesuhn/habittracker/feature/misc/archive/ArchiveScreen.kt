@@ -142,6 +142,7 @@ private fun ArchiveScreen(
                     onDeleteRequest
                 )
             }
+
             Result.Loading -> {}
             is Result.Failure -> ErrorView(
                 label = stringResource(R.string.archive_load_error)
@@ -181,9 +182,14 @@ private fun ArchivedHabitItem(
         modifier = Modifier
             .padding(horizontal = 16.dp)
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.medium)
+            .background(
+                MaterialTheme.colorScheme.surfaceVariant,
+                shape = MaterialTheme.shapes.medium
+            )
     ) {
-        Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+        Column(modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()) {
             Text(
                 text = habit.name,
                 style = AppTextStyle.habitTitle
@@ -227,15 +233,23 @@ private fun HabitSummary(habit: ArchivedHabit) {
 
 @Composable
 private fun EmptyView() {
-    Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 32.dp)) {
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 32.dp)) {
         Icon(
-            modifier = Modifier.size(64.dp).align(Alignment.CenterHorizontally).alpha(0.5f),
+            modifier = Modifier
+                .size(64.dp)
+                .align(Alignment.CenterHorizontally)
+                .alpha(0.5f),
             painter = CoreIcons.Archive,
             contentDescription = stringResource(coreR.string.common_archive)
         )
         Spacer(Modifier.height(16.dp))
         Text(
-            modifier = Modifier.fillMaxWidth().padding(32.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(32.dp),
             text = stringResource(R.string.archive_empty),
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Center
@@ -266,7 +280,12 @@ fun PreviewArchiveScreenEmpty() {
 fun PreviewArchiveScreenItems() {
     PreviewTheme {
         val items = persistentListOf(
-            ArchivedHabit(id = 1, name = "Meditation", totalActionCount = 45, lastAction = Instant.ofEpochMilli(1624563468000)),
+            ArchivedHabit(
+                id = 1,
+                name = "Meditation",
+                totalActionCount = 45,
+                lastAction = Instant.ofEpochMilli(1624563468000)
+            ),
             ArchivedHabit(id = 2, name = "Yoga", totalActionCount = 0, lastAction = null)
         )
         ArchiveScreen(

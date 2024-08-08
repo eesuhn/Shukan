@@ -69,7 +69,7 @@ fun ExportScreen(viewModel: ExportViewModel, navigateBack: () -> Unit) {
         viewModel.importFromFile(URI.create(it.toString()))
     }
     val context = LocalContext.current
-    val onShareClick: (URI) -> Unit =  {
+    val onShareClick: (URI) -> Unit = {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_STREAM, android.net.Uri.parse(it.toString()))
@@ -79,7 +79,9 @@ fun ExportScreen(viewModel: ExportViewModel, navigateBack: () -> Unit) {
     }
 
     Column(
-        modifier = Modifier.background(MaterialTheme.colorScheme.background).fillMaxSize()
+        modifier = Modifier
+            .background(MaterialTheme.colorScheme.background)
+            .fillMaxSize()
     ) {
         AppDefaultAppBar(
             title = { Text(text = stringResource(R.string.export_title)) },
@@ -90,9 +92,10 @@ fun ExportScreen(viewModel: ExportViewModel, navigateBack: () -> Unit) {
             }
         )
 
-        Column(modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp)
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp)
         ) {
             BackupInfo(Modifier.padding(vertical = 16.dp))
 
@@ -168,7 +171,10 @@ private fun ExportImportError(error: ExportImportError, modifier: Modifier = Mod
 private fun BackupInfo(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
-            .background(LocalAppColors.current.successContainer, shape = MaterialTheme.shapes.medium)
+            .background(
+                LocalAppColors.current.successContainer,
+                shape = MaterialTheme.shapes.medium
+            )
             .fillMaxWidth()
             .padding(16.dp)
     ) {
@@ -224,7 +230,10 @@ private fun Exporter(
             Box(
                 modifier = Modifier
                     .padding(top = 16.dp)
-                    .background(LocalAppColors.current.successContainer, MaterialTheme.shapes.medium)
+                    .background(
+                        LocalAppColors.current.successContainer,
+                        MaterialTheme.shapes.medium
+                    )
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {

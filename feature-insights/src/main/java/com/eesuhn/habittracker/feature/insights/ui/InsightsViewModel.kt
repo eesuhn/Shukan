@@ -35,7 +35,7 @@ class InsightsViewModel @Inject constructor(
     private val habitDao: HabitDao,
     private val telemetry: Telemetry,
     onboardingManager: OnboardingManager
-): ViewModel() {
+) : ViewModel() {
 
     val heatmapState = MutableStateFlow<Result<HeatmapMonth>>(Result.Loading)
     val topHabits = MutableStateFlow<Result<ImmutableList<TopHabitItem>>>(Result.Loading)
@@ -107,7 +107,8 @@ class InsightsViewModel @Inject constructor(
             topHabits.value = habitDao
                 .getMostSuccessfulHabits(100) // TODO: smaller number when "See all" screen is done
                 .filter { it.first_day != null }
-                .map { val mapHabitActionCount = mapHabitActionCount(it, LocalDate.now())
+                .map {
+                    val mapHabitActionCount = mapHabitActionCount(it, LocalDate.now())
                     mapHabitActionCount
                 }
                 .let { Result.Success(it.toImmutableList()) }

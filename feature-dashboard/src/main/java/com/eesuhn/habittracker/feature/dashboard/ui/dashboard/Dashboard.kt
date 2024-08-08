@@ -16,7 +16,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -39,7 +38,6 @@ import com.eesuhn.habittracker.core.model.Action
 import com.eesuhn.habittracker.core.model.Habit
 import com.eesuhn.habittracker.core.model.HabitId
 import com.eesuhn.habittracker.core.model.HabitWithActions
-import com.eesuhn.habittracker.core.ui.component.AppBarOverflowMenuAction
 import com.eesuhn.habittracker.core.ui.component.AppDefaultRootAppBar
 import com.eesuhn.habittracker.core.ui.component.ContentWithPlaceholder
 import com.eesuhn.habittracker.core.ui.component.ErrorView
@@ -110,6 +108,7 @@ fun DashboardScreen(
                 onMove
             )
         }
+
         is Result.Failure -> ErrorView(label = stringResource(R.string.dashboard_error))
         Result.Loading -> {}
     }
@@ -150,7 +149,10 @@ private fun LoadedDashboard(
     onExportClick: () -> Unit,
     onMove: (ItemMoveEvent) -> Unit
 ) {
-    Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)) {
         DashboardAppBar(onConfigClick, onSettingsClick, onArchiveClick, onExportClick)
 
         if (onboardingState != null) {
@@ -168,11 +170,13 @@ private fun LoadedDashboard(
                             habits, onActionToggle, onHabitDetail, onAddHabitClick, onMove
                         )
                     }
+
                     DashboardConfig.MiniCalendar -> {
                         MiniCalendarHabitList(
                             habits, onActionToggle, onHabitDetail, onAddHabitClick, onMove
                         )
                     }
+
                     DashboardConfig.Compact -> {
                         CompactHabitList(
                             habits, onActionToggle, onHabitDetail, onAddHabitClick, onMove
@@ -200,10 +204,16 @@ private fun DashboardAppBar(
         },
         actions = {
             IconButton(onClick = onConfigClick) {
-                Icon(DashboardIcons.DashboardLayout, stringResource(R.string.dashboard_change_layout))
+                Icon(
+                    DashboardIcons.DashboardLayout,
+                    stringResource(R.string.dashboard_change_layout)
+                )
             }
             IconButton(onClick = onArchiveClick) {
-                Icon(painter = CoreIcons.Archive, contentDescription = stringResource(coreR.string.menu_archive))
+                Icon(
+                    painter = CoreIcons.Archive,
+                    contentDescription = stringResource(coreR.string.menu_archive)
+                )
             }
         }
     )

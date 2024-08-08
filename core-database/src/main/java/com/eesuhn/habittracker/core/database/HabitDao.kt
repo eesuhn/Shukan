@@ -1,9 +1,23 @@
 package com.eesuhn.habittracker.core.database
 
-import androidx.room.*
-import com.eesuhn.habittracker.core.database.entity.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
+import com.eesuhn.habittracker.core.database.entity.Action
+import com.eesuhn.habittracker.core.database.entity.ActionCompletionRate
+import com.eesuhn.habittracker.core.database.entity.ActionCountByMonth
+import com.eesuhn.habittracker.core.database.entity.ActionCountByWeek
+import com.eesuhn.habittracker.core.database.entity.Habit
+import com.eesuhn.habittracker.core.database.entity.HabitActionCount
+import com.eesuhn.habittracker.core.database.entity.HabitById
+import com.eesuhn.habittracker.core.database.entity.HabitId
+import com.eesuhn.habittracker.core.database.entity.HabitTopDay
+import com.eesuhn.habittracker.core.database.entity.HabitWithActions
+import com.eesuhn.habittracker.core.database.entity.SumActionCountByDay
 import kotlinx.coroutines.flow.Flow
-import java.time.Instant
 import java.time.LocalDate
 
 @Dao
@@ -58,12 +72,6 @@ interface HabitDao {
     @Transaction
     @Query("SELECT * FROM habit WHERE id = :habitId")
     suspend fun getHabitWithActions(habitId: Int): HabitWithActions
-
-    @Query("SELECT * FROM `action` WHERE habit_id = :habitId")
-    suspend fun getActionsForHabit(habitId: Int): List<Action>
-
-    @Query("SELECT * FROM `action` WHERE timestamp >= :after")
-    suspend fun getActionsAfter(after: Instant): List<Action>
 
     @Insert
     suspend fun insertActions(actions: List<Action>)
@@ -175,18 +183,4 @@ interface HabitDao {
     )
     suspend fun getCompletedHabitsAt(date: LocalDate): List<Habit>
 
-    @Query(
-        """SELECT
-                habit.*,
-                today_action.timestamp
-            FROM habit
-            LEFT JOIN (
-                SELECT * FROM `action` WHERE date(`action`.timestamp / 1000, 'unixepoch', 'localtime') = date(:date)
-            ) AS today_action ON habit.id = today_action.habit_id
-            WHERE habit.archived == 0
-            GROUP BY habit.id
-            ORDER BY habit.`order` ASC
-        """
-    )
-    suspend fun getHabitDayViewsAt(date: LocalDate): List<HabitDayView>
 }

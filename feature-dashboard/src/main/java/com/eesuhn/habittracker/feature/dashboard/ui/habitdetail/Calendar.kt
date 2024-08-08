@@ -16,13 +16,13 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.kizitonwose.calendar.core.CalendarDay
-import com.kizitonwose.calendar.core.DayPosition
 import com.eesuhn.habittracker.core.model.Action
 import com.eesuhn.habittracker.core.ui.component.HorizontalMonthCalendar
 import com.eesuhn.habittracker.core.ui.recomposition.StableHolder
 import com.eesuhn.habittracker.core.ui.semantics.habitActionSemantics
 import com.eesuhn.habittracker.core.ui.theme.LocalAppColors
+import com.kizitonwose.calendar.core.CalendarDay
+import com.kizitonwose.calendar.core.DayPosition
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.YearMonth
@@ -39,7 +39,7 @@ fun HabitCalendar(
     HorizontalMonthCalendar(
         yearMonth = yearMonth,
         onMonthSwipe = onMonthSwipe
-    ) {calendarDay ->
+    ) { calendarDay ->
         val actionOnDay = actions.find {
             val dateOfAction = LocalDateTime
                 .ofInstant(it.timestamp, ZoneId.systemDefault())
@@ -82,8 +82,10 @@ private fun DayCell(
             .background(backgroundColor, shape = CircleShape),
         contentAlignment = Alignment.Center
     ) {
-        val isFaded = !action.toggled && (day.position != DayPosition.MonthDate || day.date.isAfter(today))
-        val textColor = if (action.toggled) MaterialTheme.colorScheme.inverseOnSurface else MaterialTheme.colorScheme.onSurface
+        val isFaded =
+            !action.toggled && (day.position != DayPosition.MonthDate || day.date.isAfter(today))
+        val textColor =
+            if (action.toggled) MaterialTheme.colorScheme.inverseOnSurface else MaterialTheme.colorScheme.onSurface
         Text(
             text = day.date.dayOfMonth.toString(),
             style = MaterialTheme.typography.bodyMedium,

@@ -27,7 +27,6 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.eesuhn.habittracker.core.common.AppPreferences
 import com.eesuhn.habittracker.core.common.Telemetry
 import com.eesuhn.habittracker.core.model.HabitId
@@ -38,8 +37,7 @@ import com.eesuhn.habittracker.feature.dashboard.ui.habitdetail.HabitDetailScree
 import com.eesuhn.habittracker.feature.insights.ui.InsightsScreen
 import com.eesuhn.habittracker.feature.misc.archive.ArchiveScreen
 import com.eesuhn.habittracker.feature.misc.export.ExportScreen
-import com.eesuhn.habittracker.feature.misc.settings.LicensesScreen
-import com.eesuhn.habittracker.feature.misc.settings.SettingsScreen
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -48,6 +46,7 @@ class MainActivity : Hilt_MainActivity() {
 
     @Inject
     lateinit var appPreferences: AppPreferences
+
     @Inject
     lateinit var navigationTelemetryLogger: NavigationTelemetryLogger
 
@@ -112,7 +111,9 @@ private fun Screens(
     NavHost(
         navController,
         startDestination = Destination.Dashboard.route,
-        modifier = Modifier.padding(padding).fillMaxSize()
+        modifier = Modifier
+            .padding(padding)
+            .fillMaxSize()
     ) {
         appDestination(Destination.Dashboard) {
             DashboardScreen(

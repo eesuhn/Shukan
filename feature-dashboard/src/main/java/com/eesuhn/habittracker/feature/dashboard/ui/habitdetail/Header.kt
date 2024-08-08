@@ -1,11 +1,20 @@
 package com.eesuhn.habittracker.feature.dashboard.ui.habitdetail
 
 import androidx.annotation.FloatRange
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -22,7 +31,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -35,10 +49,13 @@ import com.airbnb.android.showkase.annotation.ShowkaseComposable
 import com.eesuhn.habittracker.core.model.Habit
 import com.eesuhn.habittracker.core.model.HabitWithActions
 import com.eesuhn.habittracker.core.ui.component.ErrorView
-import com.eesuhn.habittracker.core.ui.component.HabitColorPicker
 import com.eesuhn.habittracker.core.ui.component.SingleStat
 import com.eesuhn.habittracker.core.ui.state.Result
-import com.eesuhn.habittracker.core.ui.theme.*
+import com.eesuhn.habittracker.core.ui.theme.AppTextStyle
+import com.eesuhn.habittracker.core.ui.theme.CoreIcons
+import com.eesuhn.habittracker.core.ui.theme.PreviewTheme
+import com.eesuhn.habittracker.core.ui.theme.composeContainerColor
+import com.eesuhn.habittracker.core.ui.theme.composeOnContainerColor
 import com.eesuhn.habittracker.feature.dashboard.R
 import com.eesuhn.habittracker.feature.dashboard.ui.model.SingleStats
 import kotlin.math.roundToInt
@@ -64,6 +81,7 @@ internal fun HabitDetailHeader(
                     habitDetailState.value.habit.color.composeContainerColor
                 }
             }
+
             else -> MaterialTheme.colorScheme.background
         },
         animationSpec = tween(durationMillis = 900, delayMillis = 150), label = "HabitDetailHeader"
@@ -75,6 +93,7 @@ internal fun HabitDetailHeader(
             is Result.Failure -> {
                 ErrorView(label = stringResource(R.string.habitdetails_error))
             }
+
             is Result.Success -> {
                 AnimatedVisibility(
                     visible = isEditing,
@@ -145,7 +164,9 @@ private fun HabitHeaderEditingContent(
                 isNameValid = it.isNotBlank()
             },
             label = { Text(stringResource(R.string.habitdetails_edit_name_label)) },
-            modifier = Modifier.padding(horizontal = 32.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(horizontal = 32.dp)
+                .fillMaxWidth(),
             isError = !isNameValid,
             singleLine = true,
             keyboardOptions = KeyboardOptions(
@@ -156,7 +177,9 @@ private fun HabitHeaderEditingContent(
             value = editingNotes,
             onValueChange = { editingNotes = it },
             label = { Text(stringResource(R.string.habitdetails_edit_notes_label)) },
-            modifier = Modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(start = 32.dp, end = 32.dp, top = 16.dp)
+                .fillMaxWidth(),
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.None
             )
@@ -172,7 +195,8 @@ private fun HabitHeaderContent(
     onBack: () -> Unit,
     onEdit: () -> Unit
 ) {
-    val bottomPadding by animateDpAsState(targetValue = if (scrollState.value < SCROLL_COLLAPSE_THRESHOLD) 32.dp else 8.dp,
+    val bottomPadding by animateDpAsState(
+        targetValue = if (scrollState.value < SCROLL_COLLAPSE_THRESHOLD) 32.dp else 8.dp,
         label = "HeaderContent"
     )
     Column(Modifier.padding(bottom = bottomPadding)) {
@@ -183,14 +207,18 @@ private fun HabitHeaderContent(
                 Column(Modifier.padding(bottom = 32.dp)) {
                     Text(
                         text = habitDetails.habit.name,
-                        modifier = Modifier.padding(horizontal = 32.dp).fillMaxWidth(),
+                        modifier = Modifier
+                            .padding(horizontal = 32.dp)
+                            .fillMaxWidth(),
                         style = AppTextStyle.habitDisplay,
                         textAlign = TextAlign.Center
                     )
                     if (habitDetails.habit.notes.isNotBlank()) {
                         Text(
                             text = habitDetails.habit.notes,
-                            modifier = Modifier.padding(horizontal = 32.dp).fillMaxWidth(),
+                            modifier = Modifier
+                                .padding(horizontal = 32.dp)
+                                .fillMaxWidth(),
                             style = MaterialTheme.typography.bodyMedium,
                             textAlign = TextAlign.Center
                         )
@@ -306,7 +334,8 @@ private fun HabitDetailLoadingAppBar(onBack: () -> Unit) {
 }
 
 @Composable
-private fun TopAppBarNavIcon() = Icon(Icons.Rounded.ArrowBack, stringResource(coreR.string.common_back))
+private fun TopAppBarNavIcon() =
+    Icon(Icons.Rounded.ArrowBack, stringResource(coreR.string.common_back))
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

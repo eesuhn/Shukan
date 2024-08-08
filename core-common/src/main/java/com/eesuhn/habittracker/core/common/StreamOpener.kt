@@ -15,7 +15,7 @@ interface StreamOpener {
     fun openOutputStream(uri: URI): OutputStream
 }
 
-class AndroidStreamOpener @Inject constructor(private val app: Application): StreamOpener {
+class AndroidStreamOpener @Inject constructor(private val app: Application) : StreamOpener {
 
     override fun openInputStream(uri: URI): InputStream {
         return app.contentResolver.openInputStream(uri.toAndroidURI())!!

@@ -15,7 +15,8 @@ class EntityTypeConverters {
     fun fromInstant(instant: Instant): Long = instant.toEpochMilli()
 
     @TypeConverter
-    fun toDate(dateString: String?): LocalDate? = if (dateString == null) null else LocalDate.parse(dateString)
+    fun toDate(dateString: String?): LocalDate? =
+        if (dateString == null) null else LocalDate.parse(dateString)
 
     @TypeConverter
     fun fromDate(localDate: LocalDate): String = localDate.toString()

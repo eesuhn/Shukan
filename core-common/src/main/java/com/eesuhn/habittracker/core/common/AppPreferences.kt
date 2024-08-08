@@ -21,36 +21,40 @@ class AppPreferences @Inject constructor(
 
     var dashboardConfig: String?
         get() = sharedPreferences.getString(KEY_DASHBOARD_CONFIG, null)
-
         set(value) {
             sharedPreferences.edit().putString(KEY_DASHBOARD_CONFIG, value).apply()
         }
 
     var onboardingFirstHabitCreated: Boolean
         get() = sharedPreferences.getBoolean(KEY_ONBOARDING_FIRST_HABIT_CREATED, false)
-        set(value) = sharedPreferences.edit().putBoolean(KEY_ONBOARDING_FIRST_HABIT_CREATED, value).apply()
+        set(value) = sharedPreferences.edit().putBoolean(KEY_ONBOARDING_FIRST_HABIT_CREATED, value)
+            .apply()
 
     var onboardingFirstActionCompleted: Boolean
         get() = sharedPreferences.getBoolean(KEY_ONBOARDING_FIRST_ACTION_COMPLETED, false)
-        set(value) = sharedPreferences.edit().putBoolean(KEY_ONBOARDING_FIRST_ACTION_COMPLETED, value).apply()
+        set(value) = sharedPreferences.edit()
+            .putBoolean(KEY_ONBOARDING_FIRST_ACTION_COMPLETED, value).apply()
 
     var onboardingHabitDetailsOpened: Boolean
         get() = sharedPreferences.getBoolean(KEY_ONBOARDING_HABIT_DETAILS_OPENED, false)
-        set(value) = sharedPreferences.edit().putBoolean(KEY_ONBOARDING_HABIT_DETAILS_OPENED, value).apply()
+        set(value) = sharedPreferences.edit().putBoolean(KEY_ONBOARDING_HABIT_DETAILS_OPENED, value)
+            .apply()
 
     var onboardingInsightsOpened: Boolean
         get() = sharedPreferences.getBoolean(KEY_ONBOARDING_INSIGHTS_OPENED, false)
-        set(value) = sharedPreferences.edit().putBoolean(KEY_ONBOARDING_INSIGHTS_OPENED, value).apply()
+        set(value) = sharedPreferences.edit().putBoolean(KEY_ONBOARDING_INSIGHTS_OPENED, value)
+            .apply()
 
     var crashReportingEnabled: Boolean
         get() = sharedPreferences.getBoolean(KEY_CRASH_REPORTING, true)
         set(value) = sharedPreferences.edit().putBoolean(KEY_CRASH_REPORTING, value).apply()
-    
+
     // This preference is observable so that the app theme can be recomposed instantly
     // TODO: it would be nice to migrate to DataStore, which supports observability out of the box
-    private val _dynamicColorEnabled = MutableStateFlow(sharedPreferences.getBoolean(KEY_DYNAMIC_COLOR, false))
+    private val _dynamicColorEnabled =
+        MutableStateFlow(sharedPreferences.getBoolean(KEY_DYNAMIC_COLOR, false))
     val dynamicColorEnabled: StateFlow<Boolean> = _dynamicColorEnabled
-    
+
     fun setDynamicColorEnabled(enabled: Boolean) {
         sharedPreferences.edit().putBoolean(KEY_DYNAMIC_COLOR, enabled).apply()
         _dynamicColorEnabled.value = enabled

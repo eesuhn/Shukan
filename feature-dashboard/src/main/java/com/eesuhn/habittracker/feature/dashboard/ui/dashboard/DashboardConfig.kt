@@ -34,7 +34,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.airbnb.android.showkase.annotation.ShowkaseComposable
-import com.eesuhn.habittracker.core.ui.component.HorizontalGrid
 import com.eesuhn.habittracker.core.ui.theme.LocalAppColors
 import com.eesuhn.habittracker.core.ui.theme.PreviewTheme
 import com.eesuhn.habittracker.feature.dashboard.R
@@ -114,7 +113,9 @@ private fun DialogContent(
         }
         Button(
             onClick = onDismissed,
-            modifier = Modifier.align(Alignment.End).padding(top = 8.dp)
+            modifier = Modifier
+                .align(Alignment.End)
+                .padding(top = 8.dp)
         ) {
             Text(text = stringResource(coreR.string.common_save))
         }
@@ -155,9 +156,17 @@ private fun FiveDayOutline() {
             )
             .padding(12.dp)
     ) {
-        Box(Modifier.fillMaxWidth(fraction = 0.4f).height(12.dp).placeholderBackground())
+        Box(
+            Modifier
+                .fillMaxWidth(fraction = 0.4f)
+                .height(12.dp)
+                .placeholderBackground())
         Spacer(Modifier.height(8.dp))
-        Box(Modifier.fillMaxWidth(fraction = 0.25f).height(4.dp).placeholderBackground())
+        Box(
+            Modifier
+                .fillMaxWidth(fraction = 0.25f)
+                .height(4.dp)
+                .placeholderBackground())
         Spacer(Modifier.height(8.dp))
         Row(Modifier.align(Alignment.End), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             FiveDayOutlineCircle(toggled = true)
@@ -197,7 +206,11 @@ private fun MiniCalendarOutline() {
             )
             .padding(12.dp)
     ) {
-        Box(Modifier.fillMaxWidth(fraction = 0.4f).height(12.dp).placeholderBackground())
+        Box(
+            Modifier
+                .fillMaxWidth(fraction = 0.4f)
+                .height(12.dp)
+                .placeholderBackground())
         Spacer(Modifier.height(4.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -264,25 +277,6 @@ private fun MiniCalendarOutlineDot(toggled: Boolean) {
                 )
             )
     )
-}
-
-@Composable
-private fun CompactOutline() {
-    Column(
-        Modifier.fillMaxWidth()
-    ) {
-        Box(Modifier.fillMaxWidth(fraction = 0.2f).height(4.dp).placeholderBackground())
-        Spacer(Modifier.height(4.dp))
-        HorizontalGrid(Modifier.fillMaxWidth()) {
-            CompactOutlineBox(toggled = false)
-            CompactOutlineBox(toggled = false)
-            CompactOutlineBox(toggled = true)
-            CompactOutlineBox(toggled = false)
-            CompactOutlineBox(toggled = false)
-            CompactOutlineBox(toggled = true)
-            CompactOutlineBox(toggled = true)
-        }
-    }
 }
 
 private fun Modifier.placeholderBackground(shape: Shape = RectangleShape) = this.composed {

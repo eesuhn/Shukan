@@ -10,7 +10,4 @@ object InsightsIcons {
         @Composable
         get() = painterResource(insightsR.drawable.ic_heatmap)
 
-    val TopDays: Painter
-        @Composable
-        get() = painterResource(insightsR.drawable.ic_topdays)
 }

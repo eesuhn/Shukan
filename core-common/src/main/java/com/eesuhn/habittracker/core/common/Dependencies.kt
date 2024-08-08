@@ -15,7 +15,8 @@ internal object CommonModule {
 
     @Provides
     @Singleton
-    fun provideTelemetry(app: Application, appPreferences: AppPreferences): Telemetry = TelemetryImpl(app, appPreferences)
+    fun provideTelemetry(app: Application, appPreferences: AppPreferences): Telemetry =
+        TelemetryImpl(app, appPreferences)
 
     @Provides
     @Singleton

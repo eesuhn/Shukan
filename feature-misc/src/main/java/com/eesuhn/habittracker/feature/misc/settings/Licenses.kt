@@ -2,7 +2,6 @@ package com.eesuhn.habittracker.feature.misc.settings
 
 import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,14 +11,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,28 +29,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import com.eesuhn.habittracker.core.ui.component.AppDefaultAppBar
 import com.eesuhn.habittracker.feature.misc.R
 import kotlinx.collections.immutable.ImmutableList
-import com.eesuhn.habittracker.core.ui.R as coreR
-
-@Composable
-fun LicensesScreen(viewModel: LicensesViewModel, navigateBack: () -> Unit) {
-    val dependencies by viewModel.dependencies.collectAsState()
-
-    Column(Modifier.background(MaterialTheme.colorScheme.background)) {
-        AppDefaultAppBar(
-            title = { Text(stringResource(R.string.licenses_title)) },
-            navigationIcon = {
-                IconButton(onClick = navigateBack) {
-                    Icon(Icons.Rounded.ArrowBack, stringResource(coreR.string.common_back))
-                }
-            }
-        )
-
-        DependencyList(dependencies)
-    }
-}
 
 @Composable
 private fun DependencyList(dependencies: ImmutableList<Dependency>) {
@@ -105,10 +79,13 @@ private fun DependencyList(dependencies: ImmutableList<Dependency>) {
                         )
                     }
                     Text(
-                        text = dependency.license?.name ?: stringResource(R.string.licenses_unknown_license),
+                        text = dependency.license?.name
+                            ?: stringResource(R.string.licenses_unknown_license),
                         style = MaterialTheme.typography.bodySmall,
                         textAlign = TextAlign.End,
-                        modifier = Modifier.align(Alignment.CenterVertically).fillMaxWidth()
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .fillMaxWidth()
                     )
                 }
 

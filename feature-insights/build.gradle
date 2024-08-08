@@ -24,7 +24,6 @@ dependencies {
     implementation libs.showkase.annotation
     kspDebug libs.showkase.processor
 
-    testImplementation project(':core-testing')
     testImplementation libs.junit
     testImplementation libs.kotlin.coroutines.test
     testImplementation libs.mockito.kotlin
