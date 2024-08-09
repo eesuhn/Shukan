@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.eesuhn.habittracker.core.model.HabitId
 import com.eesuhn.habittracker.core.ui.component.AppDefaultRootAppBar
@@ -64,7 +65,7 @@ private fun InsightsAppBar(
         title = {
             Text(
                 text = stringResource(insightsR.string.insights_screen_title),
-                style = AppTextStyle.screenTitle
+                style = AppTextStyle.screenTitle.copy(fontWeight = FontWeight.Bold)
             )
         },
         actions = {

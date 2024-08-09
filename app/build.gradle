@@ -13,7 +13,7 @@ ext {
     PACKAGE_NAME = "com.eesuhn.habittracker"
     API_KEY_BUGSNAG = "2e13a542ae3ed09ad42a5c82444925af"
     URL_PRIVACY_POLICY = "https://habit-builder-97708.web.app/privacy-policy.html"
-    URL_SOURCE_CODE = "https://github.com/eesuhn/HabitTracker"
+    URL_SOURCE_CODE = "https://github.com/eesuhn/Shukan"
 }
 
 def useReleaseKeystore = rootProject.file("release/app-release.jks").exists()
@@ -95,9 +95,6 @@ ruler {
 
 licensee {
     allow("Apache-2.0")
-    allow("BSD-3-Clause")
-    allowUrl("https://github.com/kizitonwose/calendar/blob/main/LICENSE.md")
-    allowUrl("https://opensource.org/licenses/MIT")
 }
 
 dependencies {

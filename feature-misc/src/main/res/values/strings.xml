@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">HabitTracker</string>
+    <string name="app_name">Shukan</string>
     <string name="settings_title">Settings</string>
     <string name="settings_header_about">About</string>
     <string name="settings_item_dynamic_color">Dynamic color</string>

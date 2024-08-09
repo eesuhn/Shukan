@@ -9,7 +9,7 @@ pluginManagement {
 
 enableFeaturePreview "STABLE_CONFIGURATION_CACHE"
 
-rootProject.name = "HabitTracker"
+rootProject.name = "Shukan"
 
 include ':app'
 include ':core-common'
