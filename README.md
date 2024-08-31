@@ -10,5 +10,5 @@
 | <div align="center"><img src="./readme-doc/details.gif" width="200"></div> | <div align="center"><img src="./readme-doc/heatmap.gif" width="200"></div> | <div align="center"><img src="./readme-doc/switch-layout.gif" width="200"></div> |
 
 #### Requirements:
-- **AGP 8.5.0**
-- **Java 17**
+- AGP 8.5.0
+- Java 17
